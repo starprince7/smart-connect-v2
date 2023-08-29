@@ -72,8 +72,11 @@ const items = [
   <img src="path-to-img" onDragStart={handleDragStart} role="presentation" />,
 ]; */
 
-const items2 = scrollItems.map(({ src, alt }) => (
-  <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl overflow-hidden">
+const items2 = scrollItems.map(({ src, alt }, index) => (
+  <div
+    key={index}
+    className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl overflow-hidden"
+  >
     {" "}
     <img src={src} alt={alt} />
   </div>
