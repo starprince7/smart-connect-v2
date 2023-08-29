@@ -1,4 +1,4 @@
-import Mailgun from "mailgun-js";
+import Mailgun from "mailgun.js";
 import formData from "form-data";
 const BASE_URL = process.env.MAILGUN_DOMAIN;
 const apiKey = process.env.MAILGUN_PRIVATE_KEY;
