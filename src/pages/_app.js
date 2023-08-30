@@ -21,15 +21,15 @@ import {
 // Project ID
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 const chains = [
-  // arbitrum,
-  // mainnet,
-  // polygon,
-  // bsc,
-  goerli,
-  sepolia,
-  // avalanche,
-  // polygonMumbai,
-  // fantom,
+  arbitrum,
+  mainnet,
+  polygon,
+  bsc,
+  // goerli,
+  // sepolia,
+  avalanche,
+  polygonMumbai,
+  fantom,
 ];
 
 export default function App({ Component, pageProps }) {
