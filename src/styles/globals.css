@@ -15,6 +15,9 @@
   .shadow-right {
     @apply w-10 sm:w-52 h-full absolute -right-1 top-0 z-10;
   }
+  .wallet-connect-btn {
+    @apply p-2 rounded-lg text-white font-semibold my-2 active:bg-blue-600 bg-blue-500;
+  }
 }
 
 :root {

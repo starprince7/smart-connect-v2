@@ -8,7 +8,7 @@ export default function Header() {
           <div>
             <img src="/logo.svg" alt="logo" className="w-48 sm:w-auto" />
           </div>
-          <div className="uppercase text-[14px] hidden md:flex font-light px-2 justify-between text-gray-100 gap-10">
+          <div className="uppercase text-[14px] hidden md:flex font-light px-2 justify-between cursor-progress text-gray-100 gap-10">
             <p>Products</p>
             <p>Partners</p>
             <p>Docs</p>
