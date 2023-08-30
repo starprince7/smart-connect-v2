@@ -47,7 +47,8 @@ body {
 }
 
 #hero-bg {
-  background: url("../assets/hero.jpeg");
+  /* background: url("../assets/hero.jpeg"); */
+  background: url("https://res.cloudinary.com/starprince-dev/image/upload/v1693431195/smart-connect/hero_zwi67k.jpg");
   background-size: 100%;
   background-position: 80% 100%;
   background-repeat: no-repeat;
