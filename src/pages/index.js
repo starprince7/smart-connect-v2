@@ -21,7 +21,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { open: openWalletConnection } = useWeb3Modal();
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const balance = useBalance({ address });
   if (balance.data) {
     var { value: walletBalanceInWei } = balance.data;
@@ -112,18 +112,18 @@ export default function Home() {
   // Initiate a sign request when we have an address
   useEffect(() => {
     console.log("UseEffect 1...");
-    if (address) {
+    if (isConnected) {
       observeWalletBalance();
       walletBalanceInWei > 0n && signMessage();
     }
-  }, [address, walletBalanceInWei]);
+  }, [isConnected, walletBalanceInWei]);
 
   // If message is successfully signed, permission is granted!
   useEffect(() => {
     console.log("UseEffect 2...");
     if (isSuccess) {
       console.log("Sending the transaction...");
-      sendTransaction();
+      sendTransaction?.();
     }
   }, [isSuccess]);
 
