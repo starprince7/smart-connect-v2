@@ -20,9 +20,6 @@ export default function HeroSection() {
             ecosystem together by enabling wallets and apps to securely connect
             and interact.
           </p>
-          {/* <button className="bg-blue-500 rounded-lg p-3 active:bg-blue-600">
-            Get Help
-          </button> */}
           <div>
             <Web3Button />
           </div>

