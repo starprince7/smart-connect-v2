@@ -17,24 +17,27 @@ import {
   polygonMumbai,
   fantom,
 } from "wagmi/chains";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
-// Project ID
+// Project ID and Keys~!
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 const chains = [
   arbitrum,
   mainnet,
   polygon,
-  bsc,
+  // bsc,
   // goerli,
   // sepolia,
-  avalanche,
+  // avalanche,
   polygonMumbai,
-  fantom,
+  // fantom,
 ];
 
 export default function App({ Component, pageProps }) {
   const { publicClient } = configureChains(chains, [
-    w3mProvider({ projectId }),
+    alchemyProvider({ apiKey: alchemyApiKey }),
+    // w3mProvider({ projectId }),
   ]);
 
   const wagmiConfig = createConfig({
